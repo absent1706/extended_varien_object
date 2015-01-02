@@ -1,0 +1,15 @@
+{
+    "name": "litvinenko/object",
+    "description": "Litvinenko\\Common\\Object class that powers Varien Object class with data validation rules taken from 'illuminate\\validation' package",
+
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/validation": "*",
+        "illuminate/translation": "~4.2",
+        "illuminate/container": "~4.2"
+        },
+        "autoload": {
+            "psr-4": {"Litvinenko\\Common\\": "src"},
+            "files": ["src/Lib/Varien_Object.php"]
+        }
+}

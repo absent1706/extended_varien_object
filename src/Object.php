@@ -15,7 +15,7 @@ abstract class Object extends \Varien_Object
      * Should be built like Laravel form validation rules (see https://scotch.io/tutorials/laravel-form-validation)
      *
      * For example:
-     *  public static $dataRules = [
+     * protected $dataRules  = [
      *    'title'   => 4,
      *    'user_id' => 'asd',
      *    'email'   => 'asd_free@gmail.com',
@@ -23,11 +23,21 @@ abstract class Object extends \Varien_Object
      *
      * @var array
      */
-    protected static $dataRules = array();
+    protected $dataRules = array();
 
-    public function __construct($data)
+    public function isValid()
     {
-        $this->validateData($data, self::$dataRules);
+        return $this->validateData($this->_data, $this->getDataRules());
+    }
+
+    public function getDataRules()
+    {
+        return array_merge(parent::getDataRules(), $this->dataRules);
+    }
+
+    public function isInvalid()
+    {
+        return !$this->isValid();
     }
 
     protected function validateData($data, $dataRules)
@@ -35,8 +45,16 @@ abstract class Object extends \Varien_Object
         $validator = Validator::make($data, $dataRules, ErrorMessages::getErrorMessages());
         if ($validator->fails())
         {
+            $this->setIsValid(false);
             $this->setValidationErrors($validator->errors()->toArray());
         }
+        else
+        {
+            $this->setIsValid(true);
+            $this->setValidationErrors(null);
+        }
+
+        return $this->getIsValid();
     }
 }
 
@@ -48,7 +66,7 @@ abstract class Object extends \Varien_Object
 // {
 //     public function __construct($data)
 //     {
-//         self::$dataRules = array_merge(parent::$dataRules, array(
+//         $this->dataRules = array_merge(parent::$dataRules, array(
 //             'title'   => 'required|integer|between:3,255',
 //             'email'   => 'required|email',
 //             'user_id' => 'integer',
@@ -62,7 +80,7 @@ abstract class Object extends \Varien_Object
 // {
 //     public function __construct($data)
 //     {
-//         self::$dataRules = array_merge(parent::$dataRules, array(
+//         $this->dataRules = array_merge(parent::$dataRules, array(
 //             'text' => 'required',
 //             ));
 

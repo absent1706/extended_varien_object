@@ -1,40 +1,43 @@
 <?php
 require 'vendor/autoload.php';
 
-class RealObject extends Litvinenko\Common\Object
+class User extends Litvinenko\Common\Object
 {
-    public function __construct($data)
-    {
-        self::$dataRules = array_merge(parent::$dataRules, array(
-            'title'   => 'required|integer|between:3,255',
-            'email'   => 'required|email',
-            'user_id' => 'integer',
-            ));
+    protected $dataRules = array(
+        'login'   => 'required',
+        'email'   => 'required|email',
+        'user_id' => 'required|integer',
+    );
 
-        parent::__construct($data);
-    }
+    // public function getDataRules()
+    // {
+    //     return array(
+    //     'login'   => 'required',
+    //     'email'   => 'required|email',
+    //     'user_id' => 'required|integer'
+    //     )
+    // }
 }
 
-class ChildObject extends RealObject
+class FacebookUser extends User
 {
-    public function __construct($data)
-    {
-        self::$dataRules = array_merge(parent::$dataRules, array(
-            'text' => 'required',
-            ));
-
-        parent::__construct($data);
-    }
+    protected $dataRules = array(
+        'facebook_login' => 'required|text',
+    );
 }
 
 $data = [
-    'title'   => 4,
-    'user_id' => 'not_number',
+    'login'   => 'some_login',
+    'user_id' => '123',
     'email'   => 'some_email@gmail.com',
 ];
 
-$parent = new RealObject($data);
-$child  = new ChildObject($data);
+$user = new User($data);
+$facebook_user = new FacebookUser($data);
 
-var_dump($parent->getValidationErrors());
-var_dump($child->getValidationErrors());
+echo ($user->isValid()) ? "User is valid\n" : "User is invalid\n";
+print_r($user->getValidationErrors());
+
+echo "\n";
+echo ($facebook_user->isValid()) ? "Facebook user is valid\n" : "Facebook user is invalid\n";
+print_r($facebook_user->getValidationErrors());

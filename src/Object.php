@@ -23,7 +23,7 @@ abstract class Object extends \Varien_Object
      *
      * @var array
      */
-    public static $dataRules = array();
+    protected static $dataRules = array();
 
     public function __construct($data)
     {

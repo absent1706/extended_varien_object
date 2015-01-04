@@ -8,35 +8,28 @@ Litvinenko\Common\Object class has isValid method that returns TRUE, if object d
 
 For example, for our User object we require login field, user email (which should look like real email) and user id (which should be integer). We will have class like that:
 
-```
-#!php
-class User extends Litvinenko\Common\Object
-{
-    protected $dataRules = array(
-        'login'   => 'required',
-        'email'   => 'required|email',
-        'user_id' => 'required|integer',
-    );
-}
-```
+    class User extends Litvinenko\Common\Object
+    {
+        protected $dataRules = array(
+            'login'   => 'required',
+            'email'   => 'required|email',
+            'user_id' => 'required|integer',
+        );
+    }
+
+
 Now, we can create some user and check whether it has valid data.
 
-```
-#!php
-$user = new User([
-    'login'   => null,
-    'email'   => 'some_email@gmail.com',
-    'user_id' => 'not_number',
-]);
+    $user = new User([
+        'login'   => null,
+        'email'   => 'some_email@gmail.com',
+        'user_id' => 'not_number',
+    ]);
+    echo ($user->isValid()) ? "User is valid\n" : "User is invalid\n";
 
-echo ($user->isValid()) ? "User is valid\n" : "User is invalid\n";
-```
 
 We even can get all validation errors
 
-```
-#!php
-print_r($user->getValidationErrors());
-```
+    print_r($user->getValidationErrors());
 
 That's it!

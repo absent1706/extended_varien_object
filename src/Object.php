@@ -15,31 +15,55 @@ abstract class Object extends \Varien_Object
      * Should be built like Laravel form validation rules (see https://scotch.io/tutorials/laravel-form-validation)
      *
      * For example:
-     * protected $dataRules  = [
-     *    'title'   => 4,
-     *    'user_id' => 'asd',
-     *    'email'   => 'asd_free@gmail.com',
-     *  ];
+     *  protected $dataRules = array(
+     *      'login'   => 'required',
+     *      'email'   => 'required|email',
+     *      'user_id' => 'required|integer',
+     *  );
      *
      * @var array
      */
     protected $dataRules = array();
 
+    /**
+     * Public shortcut for 'validateData' method
+     *
+     * @return bool
+     */
     public function isValid()
     {
         return $this->validateData($this->_data, $this->getDataRules());
     }
 
+    /**
+     * Returns object data rules
+     *
+     * @return array
+     */
     public function getDataRules()
     {
-        return array_merge(parent::getDataRules(), $this->dataRules);
+        return $this->dataRules;
     }
 
+    /**
+     * Returns result opposite to 'isValid()'
+     *
+     * @return bool
+     */
     public function isInvalid()
     {
         return !$this->isValid();
     }
 
+    /**
+     * Checks whether object is valid and sets 'is_valid' data row to TRUE or FALSE.
+     * If validation failed, writes all errors to 'validation_errors' data row.
+     *
+     * @param  array $data
+     * @param  array $dataRules
+     *
+     * @return bool
+     */
     protected function validateData($data, $dataRules)
     {
         $validator = Validator::make($data, $dataRules, ErrorMessages::getErrorMessages());
@@ -58,44 +82,23 @@ abstract class Object extends \Varien_Object
     }
 }
 
-// Here is usage example
 // <?php
 // require 'vendor/autoload.php';
 
-// class RealObject extends Litvinenko\Common\Object
+// class User extends Litvinenko\Common\Object
 // {
-//     public function __construct($data)
-//     {
-//         $this->dataRules = array_merge(parent::$dataRules, array(
-//             'title'   => 'required|integer|between:3,255',
-//             'email'   => 'required|email',
-//             'user_id' => 'integer',
-//             ));
-
-//         parent::__construct($data);
-//     }
+//     protected $dataRules = array(
+//         'login'   => 'required',
+//         'email'   => 'required|email',
+//         'user_id' => 'required|integer',
+//     );
 // }
 
-// class ChildObject extends RealObject
-// {
-//     public function __construct($data)
-//     {
-//         $this->dataRules = array_merge(parent::$dataRules, array(
-//             'text' => 'required',
-//             ));
-
-//         parent::__construct($data);
-//     }
-// }
-
-// $data = [
-//     'title'   => 4,
-//     'user_id' => 'not_number',
+// $user = new User([
+//     'login'   => null,
 //     'email'   => 'some_email@gmail.com',
-// ];
+//     'user_id' => 'not_number',
+// ]);
 
-// $parent = new RealObject($data);
-// $child  = new ChildObject($data);
-
-// var_dump($parent->getValidationErrors());
-// var_dump($child->getValidationErrors());
+// echo ($user->isValid()) ? "User is valid\n" : "User is invalid\n";
+// print_r($user->getValidationErrors());

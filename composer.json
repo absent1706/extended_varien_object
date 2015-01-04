@@ -10,6 +10,6 @@
         },
         "autoload": {
             "psr-4": {"Litvinenko\\Common\\": "src"},
-            "files": ["src/Lib/Varien_Object.php"]
+            "files": ["src/Lib/Varien_Object.php", "bootstrap.php"]
         }
 }

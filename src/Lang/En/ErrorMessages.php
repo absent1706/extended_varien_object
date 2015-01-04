@@ -11,6 +11,15 @@ class ErrorMessages
     {
         return array(
 
+            // messages for custom rules from bootstrap.php
+            'float'                => "The :attribute should be float value (strings are accepted)",
+            'float_strict'         => "The :attribute should be float value (strings are NOT accepted)",
+            'integer_strict'       => "The :attribute should be integer (strings are NOT accepted)",
+            'more_than'            => "The :attribute should be more than :value",
+            'less_than'            => "The :attribute should be less than :value",
+            'more_than_or_equal'   => "The :attribute should be more or equal than :value",
+            'less_than_or_equal'   => "The :attribute should be less or equal than :value",
+
             /*
              * Next code was taken from Laravel (app\lang\en\validation.php)
             */

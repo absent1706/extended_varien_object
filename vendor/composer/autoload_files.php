@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     $vendorDir . '/illuminate/support/Illuminate/Support/helpers.php',
     $baseDir . '/src/Lib/Varien_Object.php',
+    $baseDir . '/bootstrap.php',
 );

@@ -41,6 +41,11 @@ Litvinenko\Common\Stub\Validator::extend('less_than_or_equal', function($attribu
     return (floatval($value) <= $parameters[0]);
 });
 
+Litvinenko\Common\Stub\Validator::extend('object', function($attribute, $value, $parameters){
+    // checks whether value is an object.
+    // if first param given (rule is like 'object:\someClass'), also object class is checked
+    return (isset($parameters[0])) ? (is_object($value) && ($value instanceof $parameters[0])) : is_object($value);
+});
 
 
 Litvinenko\Common\Stub\Validator::replacer('more_than', function($message, $attribute, $rule, $parameters)
@@ -61,4 +66,9 @@ Litvinenko\Common\Stub\Validator::replacer('more_than_or_equal', function($messa
 Litvinenko\Common\Stub\Validator::replacer('less_than_or_equal', function($message, $attribute, $rule, $parameters)
 {
     return str_replace(':value', $parameters[0], $message);
+});
+Litvinenko\Common\Stub\Validator::replacer('object', function($message, $attribute, $rule, $parameters)
+{
+    $replaceStr = isset($parameters[0]) ? "instance of '{$parameters[0]}'" : "an object";
+    return str_replace(':class_message', $replaceStr, $message);
 });

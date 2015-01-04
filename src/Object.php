@@ -46,6 +46,42 @@ abstract class Object extends \Varien_Object
     }
 
     /**
+     * Sets object data rules
+     *
+     * @return \Litvinenko\Common\Object
+     */
+    public function setDataRules($dataRules)
+    {
+        $this->dataRules = $dataRules;
+        return $this;
+    }
+
+    /**
+     * Adds object data rule
+     *
+     * @return \Litvinenko\Common\Object
+     */
+    public function addDataRule($attribute, $rule)
+    {
+        $this->dataRules[$attribute] = $rule;
+        return $this;
+    }
+
+    /**
+     * Removes object data rule
+     *
+     * @return \Litvinenko\Common\Object
+     */
+    public function removeDataRule($attribute)
+    {
+        if (isset($this->dataRules[$attribute]))
+        {
+            unset($this->dataRules[$attribute]);
+        }
+        return $this;
+    }
+
+    /**
      * Returns result opposite to 'isValid()'
      *
      * @return bool

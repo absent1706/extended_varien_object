@@ -37,3 +37,4 @@ That's it!
 ## Change logs:
 
  * version 0.0.2: added new convenient validation rules 'float', 'float_strict', 'integer_strict', 'more_than', 'less_than', 'more_than_or_equal', 'less_than_or_equal' (see bootstrap.php)
+ * version 0.0.3: added 'object' data rule (see bootstrap.php) and add/remove/set methods for data rules to Litvinenko\Common\Object

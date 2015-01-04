@@ -33,3 +33,7 @@ We even can get all validation errors
     print_r($user->getValidationErrors());
 
 That's it!
+
+## Change logs:
+
+ * version 0.0.2: added new convenient validation rules 'float', 'float_strict', 'integer_strict', 'more_than', 'less_than', 'more_than_or_equal', 'less_than_or_equal' (see bootstrap.php)

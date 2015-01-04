@@ -41,7 +41,24 @@ Litvinenko\Common\Stub\Validator::extend('less_than_or_equal', function($attribu
     return (floatval($value) <= $parameters[0]);
 });
 
+
+
+Litvinenko\Common\Stub\Validator::replacer('more_than', function($message, $attribute, $rule, $parameters)
+{
+    return str_replace(':value', $parameters[0], $message);
+});
+
+Litvinenko\Common\Stub\Validator::replacer('less_than', function($message, $attribute, $rule, $parameters)
+{
+    return str_replace(':value', $parameters[0], $message);
+});
+
 Litvinenko\Common\Stub\Validator::replacer('more_than_or_equal', function($message, $attribute, $rule, $parameters)
+{
+    return str_replace(':value', $parameters[0], $message);
+});
+
+Litvinenko\Common\Stub\Validator::replacer('less_than_or_equal', function($message, $attribute, $rule, $parameters)
 {
     return str_replace(':value', $parameters[0], $message);
 });

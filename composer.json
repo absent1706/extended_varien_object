@@ -3,7 +3,7 @@
     "description": "Litvinenko\\Common\\Object class that powers Varien Object class with data validation rules taken from 'illuminate\\validation' package",
 
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
         "illuminate/validation": "*",
         "illuminate/translation": "~4.2",
         "illuminate/container": "~4.2"

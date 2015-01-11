@@ -2,6 +2,14 @@
 
 // register new common validation rules
 
+Litvinenko\Common\Stub\Validator::extend('not_null', function($attribute, $value, $parameters){
+    // checks whether value is not null
+    // is more 'soft' than 'required' rule: 'required' rule returns false for empty arrays
+    // this rule only checks whether attribute is set at all
+        return !is_null($value);
+});
+
+
 Litvinenko\Common\Stub\Validator::extend('float', function($attribute, $value, $parameters){
     // checks whether value is float or string containing float
     if (is_float($value) || is_integer($value))

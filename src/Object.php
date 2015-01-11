@@ -26,6 +26,19 @@ abstract class Object extends \Varien_Object
     protected $dataRules = array();
 
     /**
+     * Throws exception if object is not valid
+     */
+    public function validate()
+    {
+        if ($this->isInvalid())
+        {
+            throw new Object\Exception("object " .  get_class($this) . " is not valid: \n" . print_r($this->getValidationErrors(),true));
+        }
+
+        return true;
+    }
+
+    /**
      * Public shortcut for 'validateData' method
      *
      * @return bool

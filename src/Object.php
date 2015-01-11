@@ -105,16 +105,18 @@ abstract class Object extends \Varien_Object
         $validator = Validator::make($data, $dataRules, ErrorMessages::getErrorMessages());
         if ($validator->fails())
         {
-            $this->setIsValid(false);
+            // $this->setIsValid(false);
+            $result = false;
             $this->setValidationErrors($validator->errors()->toArray());
         }
         else
         {
-            $this->setIsValid(true);
+            // $this->setIsValid(true);
+            $result = true;
             $this->setValidationErrors(null);
         }
 
-        return $this->getIsValid();
+        return $result;
     }
 }
 
